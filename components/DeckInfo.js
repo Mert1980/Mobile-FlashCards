@@ -1,11 +1,17 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { white, gray } from "../utils/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function DeckInfo(props) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.deckInfoContainer}>
-      <TouchableOpacity style={styles.center}>
+      <TouchableOpacity
+        style={styles.center}
+        onPress={() => navigation.navigate("Deck", { deckId: props.title })}
+      >
         <Text style={{ fontSize: 30 }}>{props.title}</Text>
         <Text style={{ fontSize: 24, color: gray }}>
           {props.questions.length} cards

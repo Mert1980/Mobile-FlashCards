@@ -13,6 +13,7 @@ import Constants from "expo-constants";
 import DeckList from "./components/DeckList";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
+import DeckInfo from "./components/DeckInfo";
 import { orange, white } from "./utils/colors";
 
 function FlashStatusBar({ backgroundColor, ...props }) {
