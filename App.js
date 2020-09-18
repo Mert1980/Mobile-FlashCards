@@ -6,6 +6,7 @@ import { NavigationContainer, TabActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
@@ -78,6 +79,7 @@ const MainNav = () => (
       name="Deck"
       component={Deck}
       options={{
+        headerTitle: "FlashCards",
         headerTintColor: white,
         headerStyle: {
           backgroundColor: orange,

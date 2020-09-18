@@ -7,11 +7,19 @@ import { white, blue } from "../utils/colors";
 
 export default function Deck(props) {
   const route = useRoute();
-  const { deckId } = route.params;
+  const { deckId, defaultLength } = route.params;
+  console.log("1 ", deckId);
 
   return (
     <View style={styles.container}>
-      <DeckInfo title={deckId} questions={data[deckId].questions} />
+      <DeckInfo
+        title={deckId}
+        questions={
+          data[deckId].questions.length > 0
+            ? data[deckId].questions
+            : defaultLength
+        }
+      />
       <TouchableOpacity style={styles.button}>
         <Text style={styles.text}>Add Card</Text>
       </TouchableOpacity>
