@@ -13,7 +13,7 @@ export default function DeckList() {
   const [value, setValue] = useState("");
 
   const navigation = useNavigation();
-  const addCard = () => {
+  const createDeck = () => {
     navigation.navigate("Deck", { deckId: value, defaultLength: 0 });
   };
   return (
@@ -40,7 +40,7 @@ export default function DeckList() {
         />
       </View>
       <View style={styles.subContainer}>
-        <TouchableOpacity style={styles.button} onPress={addCard}>
+        <TouchableOpacity style={styles.button} onPress={createDeck}>
           <Text style={styles.text}>Create Deck</Text>
         </TouchableOpacity>
       </View>
