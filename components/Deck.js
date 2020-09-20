@@ -24,7 +24,7 @@ export default function Deck(props) {
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Add Card")}
+        onPress={() => navigation.navigate("Add Card", { deckId })}
       >
         <Text style={styles.text}>Add Card</Text>
       </TouchableOpacity>

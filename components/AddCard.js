@@ -7,15 +7,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { white, blue } from "../utils/colors";
 
 export default function DeckList() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
+  const route = useRoute();
   const navigation = useNavigation();
-  const createDeck = () => {
-    navigation.navigate("Deck", { deckId: value, defaultLength: 0 });
+  const createCard = () => {
+    navigation.navigate("Deck", {
+      deckId: route.params.deckId,
+      defaultLength: 0,
+    });
   };
   return (
     <View style={styles.container}>
@@ -42,14 +46,14 @@ export default function DeckList() {
             borderColor: "gray",
             borderWidth: 1,
           }}
-          onChangeText={(text) => setValue(text)}
+          onChangeText={(text) => setAnswer(text)}
           value={answer}
           placeholder="Answer"
           clearButtonMode="always"
         />
       </View>
       <View style={styles.subContainer}>
-        <TouchableOpacity style={styles.button} onPress={createDeck}>
+        <TouchableOpacity style={styles.button} onPress={createCard}>
           <Text style={styles.text}>Create Card</Text>
         </TouchableOpacity>
       </View>
