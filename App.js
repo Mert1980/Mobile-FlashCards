@@ -16,6 +16,7 @@ import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
 import DeckInfo from "./components/DeckInfo";
 import AddCard from "./components/AddCard";
+import Quiz from "./components/Quiz";
 import { orange, white } from "./utils/colors";
 
 function FlashStatusBar({ backgroundColor, ...props }) {
@@ -112,6 +113,13 @@ const MainNav = () => (
     <Stack.Screen
       name="Add Card"
       component={AddCard}
+      options={() => ({
+        headerTitle: null,
+      })}
+    />
+    <Stack.Screen
+      name="Quiz"
+      component={Quiz}
       options={() => ({
         headerTitle: null,
       })}

@@ -12,6 +12,12 @@ export default function Deck(props) {
   const { deckId, defaultLength } = route.params;
   console.log("1 ", deckId);
 
+  const startQuiz = () => {
+    navigation.navigate("Quiz", {
+      deckId: deckId,
+      defaultLength: 0,
+    });
+  };
   return (
     <View style={styles.container}>
       <DeckInfo
@@ -28,7 +34,7 @@ export default function Deck(props) {
       >
         <Text style={styles.text}>Add Card</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={startQuiz}>
         <Text style={styles.text}>Start Quiz</Text>
       </TouchableOpacity>
     </View>

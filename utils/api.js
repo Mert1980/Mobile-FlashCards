@@ -3,12 +3,17 @@ export const data = {
     title: "React",
     questions: [
       {
-        question: "What is React?",
-        answer: "A library for managing user interfaces",
+        question: "Is React a library for managing user interfaces ?",
+        answer: "Yes",
       },
       {
-        question: "Where do you make Ajax requests in React?",
-        answer: "The componentDidMount lifecycle event",
+        question:
+          "Do you make Ajax requests in componentDidMount lifecycle event in React?",
+        answer: "Yes",
+      },
+      {
+        question: "Can you use hooks in class-based components?",
+        answer: "No",
       },
     ],
   },
@@ -16,9 +21,9 @@ export const data = {
     title: "JavaScript",
     questions: [
       {
-        question: "What is a closure?",
-        answer:
-          "The combination of a function and the lexical environment within which that function was declared.",
+        question:
+          "Is closure the combination of a function and the lexical environment within which that function was declared?",
+        answer: "Yes",
       },
     ],
   },
