@@ -1,12 +1,14 @@
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import DeckInfo from "./DeckInfo";
 import { data } from "../utils/api";
 import { white, blue } from "../utils/colors";
 
 export default function Deck(props) {
   const route = useRoute();
+  const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
   console.log("1 ", deckId);
 
@@ -20,7 +22,10 @@ export default function Deck(props) {
             : defaultLength
         }
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Add Card")}
+      >
         <Text style={styles.text}>Add Card</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>

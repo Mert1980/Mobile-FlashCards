@@ -15,6 +15,7 @@ import DeckList from "./components/DeckList";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
 import DeckInfo from "./components/DeckInfo";
+import AddCard from "./components/AddCard";
 import { orange, white } from "./utils/colors";
 
 function FlashStatusBar({ backgroundColor, ...props }) {
@@ -33,6 +34,8 @@ function getHeaderTitle(route) {
       return "Decks";
     case "Add Deck":
       return "Add Deck";
+    case "Add Card":
+      return "Add Card";
   }
 }
 const Tabs =
@@ -104,6 +107,13 @@ const MainNav = () => (
         headerStyle: {
           backgroundColor: orange,
         },
+      })}
+    />
+    <Stack.Screen
+      name="Add Card"
+      component={AddCard}
+      options={() => ({
+        headerTitle: null,
       })}
     />
   </Stack.Navigator>
