@@ -6,11 +6,10 @@ import { black, blue, red, white, orange } from "../utils/colors";
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function Result({ result, questions }) {
+export default function Result() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { deckId, defaultLength } = route.params;
-  console.log("deckId", deckId);
+  const { deckId, countResult, length } = route.params;
 
   const restartQuiz = () => {
     navigation.navigate("Quiz", {
@@ -29,11 +28,11 @@ export default function Result({ result, questions }) {
       <Separator />
       <View>
         <Text style={[styles.text, { color: orange, fontSize: 24 }]}>
-          You have answered {result} out of {questions} questions correct!
+          You have answered {countResult} out of {length} questions correct!
         </Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.button} onPress={restartQuiz}>
+        <TouchableOpacity style={styles.button} onPress={() => restartQuiz()}>
           <Text style={styles.text}>Restart Quiz</Text>
         </TouchableOpacity>
       </View>

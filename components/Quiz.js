@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -7,7 +7,6 @@ import { data } from "../utils/api";
 import { black, blue, red, white, gray } from "../utils/colors";
 
 export default function Quiz(props) {
-  console.log("1 ", props);
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
@@ -41,9 +40,20 @@ export default function Quiz(props) {
     }
   };
 
-  return showResult === true ? (
-    <Result result={countResult} questions={length} />
-  ) : (
+  useEffect(() => {
+    if (showResult) {
+      setCounter(0);
+      setCountResult(0);
+      setShowResult(false);
+      navigation.navigate("Result", {
+        countResult,
+        length,
+        deckId,
+      });
+    }
+  }, [showResult]);
+
+  return (
     <View style={styles.container}>
       <View style={styles.counter}>
         <Text style={styles.counterText}>
