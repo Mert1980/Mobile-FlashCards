@@ -1,5 +1,4 @@
 export const result = (score) => {
-  console.log(score);
   if (score < 50) {
     return "Poor ;(";
   } else if (50 <= score && score < 70) {
