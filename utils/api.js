@@ -3,17 +3,17 @@ export const data = {
     title: "React",
     questions: [
       {
-        question: "Is React a library for managing user interfaces ?",
-        answer: "Yes",
+        question: "React is a library for managing user interfaces.",
+        answer: true,
       },
       {
         question:
-          "Do you make Ajax requests in componentDidMount lifecycle event in React?",
-        answer: "Yes",
+          "Ajax requests are made in componentDidMount lifecycle event in React.",
+        answer: true,
       },
       {
-        question: "Can you use hooks in class-based components?",
-        answer: "No",
+        question: "Hooks are used in class-based components.",
+        answer: false,
       },
     ],
   },
@@ -22,8 +22,8 @@ export const data = {
     questions: [
       {
         question:
-          "Is closure the combination of a function and the lexical environment within which that function was declared?",
-        answer: "Yes",
+          "Closure is the combination of a function and the lexical environment within which that function was declared.",
+        answer: true,
       },
     ],
   },

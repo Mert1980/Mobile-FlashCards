@@ -10,43 +10,62 @@ export default function Deck(props) {
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
-
   const [onAnswer, setOnAnswer] = useState(false);
-  const [counter, setCounter] = useState(1);
+  const [counter, setCounter] = useState(0);
   const [showResult, setShowResult] = useState(false);
-
+  const [countResult, setCountResult] = useState(0);
   const length = data[deckId].questions.length;
 
-  const handleAnswer = () => {
-    if (counter < length) {
-      setCounter(counter + 1);
-    } else {
+  const handleCorrect = () => {
+    if (data[deckId].questions[counter].answer) {
+      setCountResult(countResult + 1);
+    }
+    if (counter === length - 1) {
       setShowResult(true);
-      console.log(showResult);
+    }
+    if (counter < length - 1) {
+      setCounter(counter + 1);
     }
   };
 
-  const resetQuiz = () => {
-    setCounter(1);
+  const handleIncorrect = () => {
+    if (!data[deckId].questions[counter].answer) {
+      setCountResult(countResult + 1);
+    }
+    if (counter === length - 1) {
+      setShowResult(true);
+    }
+    if (counter < length - 1) {
+      setCounter(counter + 1);
+    }
   };
 
   return showResult === true ? (
-    <Result />
+    <Result result={countResult} questions={length} />
   ) : (
     <View style={styles.container}>
       <View style={styles.counter}>
         <Text style={styles.counterText}>
-          {counter}/{length}
+          {counter + 1}/{length}
         </Text>
       </View>
       <View>
         {!onAnswer ? (
           <Text style={[styles.text, { color: black, fontSize: 30 }]}>
-            {data[deckId].questions[counter - 1].question}
+            {
+              data[deckId].questions[
+                counter - 1 < 0 ? 0 : counter === length ? counter - 1 : counter
+              ].question
+            }
           </Text>
         ) : (
           <Text style={[styles.text, { color: black, fontSize: 30 }]}>
-            {data[deckId].questions[counter - 1].answer}!
+            {data[deckId].questions[
+              counter - 1 < 0 ? 0 : counter === length ? counter - 1 : counter
+            ].answer
+              ? "Yes"
+              : "No"}
+            !
           </Text>
         )}
       </View>
@@ -59,14 +78,14 @@ export default function Deck(props) {
       </View>
 
       <View>
-        <TouchableOpacity style={styles.button} onPress={handleAnswer}>
+        <TouchableOpacity style={styles.button} onPress={handleCorrect}>
           <Text style={styles.text}>Correct</Text>
         </TouchableOpacity>
       </View>
       <View>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: red }]}
-          onPress={handleAnswer}
+          onPress={handleIncorrect}
         >
           <Text style={styles.text}>Incorrect</Text>
         </TouchableOpacity>
