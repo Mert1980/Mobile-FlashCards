@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { black, blue, red, white, orange } from "../utils/colors";
+import { result } from "../utils/helpers";
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -10,6 +11,8 @@ export default function Result() {
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, countResult, length } = route.params;
+
+  const score = Math.round((countResult / length) * 100);
 
   const restartQuiz = () => {
     navigation.navigate("Quiz", {
@@ -22,13 +25,13 @@ export default function Result() {
     <View style={styles.container}>
       <View>
         <Text style={[styles.text, { color: black, fontSize: 30 }]}>
-          Congratulations!
+          {result(score)}
         </Text>
       </View>
       <Separator />
       <View>
         <Text style={[styles.text, { color: orange, fontSize: 24 }]}>
-          You have answered {countResult} out of {length} questions correct!
+          You have answered {score}% of the questions correct!
         </Text>
       </View>
       <View>
