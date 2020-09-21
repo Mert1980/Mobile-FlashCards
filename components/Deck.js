@@ -7,10 +7,10 @@ import { data } from "../utils/api";
 import { white, blue } from "../utils/colors";
 
 export default function Deck(props) {
+  console.log("2 ", props);
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
-  console.log("1 ", deckId);
 
   const startQuiz = () => {
     navigation.navigate("Quiz", {

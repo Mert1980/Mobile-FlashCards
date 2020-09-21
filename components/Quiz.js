@@ -6,7 +6,8 @@ import Result from "./Result";
 import { data } from "../utils/api";
 import { black, blue, red, white, gray } from "../utils/colors";
 
-export default function Deck(props) {
+export default function Quiz(props) {
+  console.log("1 ", props);
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;

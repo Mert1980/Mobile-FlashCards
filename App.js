@@ -14,9 +14,9 @@ import Constants from "expo-constants";
 import DeckList from "./components/DeckList";
 import Deck from "./components/Deck";
 import AddDeck from "./components/AddDeck";
-import DeckInfo from "./components/DeckInfo";
 import AddCard from "./components/AddCard";
 import Quiz from "./components/Quiz";
+import Result from "./components/Result";
 import { orange, white } from "./utils/colors";
 
 function FlashStatusBar({ backgroundColor, ...props }) {
@@ -29,14 +29,11 @@ function FlashStatusBar({ backgroundColor, ...props }) {
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Decks";
-  console.log("route ", route.params);
   switch (routeName) {
     case "Decks":
       return "Decks";
     case "Add Deck":
       return "Add Deck";
-    case "Add Card":
-      return "Add Card";
   }
 }
 const Tabs =
@@ -120,6 +117,13 @@ const MainNav = () => (
     <Stack.Screen
       name="Quiz"
       component={Quiz}
+      options={() => ({
+        headerTitle: null,
+      })}
+    />
+    <Stack.Screen
+      name="Result"
+      component={Result}
       options={() => ({
         headerTitle: null,
       })}

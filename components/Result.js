@@ -6,10 +6,18 @@ import { black, blue, red, white, orange } from "../utils/colors";
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function Deck({ result, questions }) {
+export default function Result({ result, questions }) {
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
+  console.log("deckId", deckId);
+
+  const restartQuiz = () => {
+    navigation.navigate("Quiz", {
+      deckId: deckId,
+      defaultLength: 0,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -25,12 +33,15 @@ export default function Deck({ result, questions }) {
         </Text>
       </View>
       <View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={restartQuiz}>
           <Text style={styles.text}>Restart Quiz</Text>
         </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity style={[styles.button, { backgroundColor: red }]}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: red }]}
+          onPress={() => navigation.navigate("Deck", { deckId })}
+        >
           <Text style={styles.text}>Back to Deck</Text>
         </TouchableOpacity>
       </View>
