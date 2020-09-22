@@ -1,3 +1,7 @@
+import AsyncStorage from "@react-native-community/async-storage";
+
+export const FLASHCARDS_STORAGE_KEY = "mobileflashcards:udacity";
+
 export const data = {
   React: {
     title: "React",
@@ -27,4 +31,23 @@ export const data = {
       },
     ],
   },
+};
+
+export const storeData = async (data) => {
+  try {
+    const jsonData = JSON.stringify(data);
+    await AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, jsonData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getDecks = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);
+    console.log("fromLocalStorage", jsonValue);
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.log(e);
+  }
 };

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import Result from "./Result";
-import { data } from "../utils/api";
 import { black, blue, red, white, gray } from "../utils/colors";
 
-export default function Quiz(props) {
+export const Quiz = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { deckId, defaultLength } = route.params;
+  const { deckId } = route.params;
   const [onAnswer, setOnAnswer] = useState(false);
   const [counter, setCounter] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [countResult, setCountResult] = useState(0);
+  const data = props.decks;
   const length = data[deckId].questions.length;
 
   const handleCorrect = () => {
@@ -103,7 +103,7 @@ export default function Quiz(props) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -144,3 +144,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+
+export default connect(mapStateToProps)(Quiz);

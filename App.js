@@ -1,14 +1,17 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Platform } from "react-native";
 import { NavigationContainer, TabActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import { Provider, connect } from "react-redux";
+import thunk from "redux-thunk";
+import logger from "./middleware/logger";
+import reducer from "./reducers";
 import { FontAwesome } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import DeckList from "./components/DeckList";
@@ -131,13 +134,17 @@ const MainNav = () => (
   </Stack.Navigator>
 );
 
+const store = createStore(reducer, applyMiddleware(thunk, logger));
+
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
-      <NavigationContainer>
-        <FlashStatusBar backgroundColor={orange} barStyle="light-content" />
-        <MainNav />
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={{ flex: 1 }}>
+        <NavigationContainer>
+          <FlashStatusBar backgroundColor={orange} barStyle="light-content" />
+          <MainNav />
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 }

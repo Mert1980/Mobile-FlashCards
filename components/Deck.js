@@ -1,15 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import DeckInfo from "./DeckInfo";
-import { data } from "../utils/api";
+
 import { white, blue } from "../utils/colors";
 
-export default function Deck() {
+export const Deck = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
+  const data = props.decks;
 
   const startQuiz = () => {
     navigation.navigate("Quiz", {
@@ -38,7 +40,7 @@ export default function Deck() {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -69,3 +71,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+
+export default connect(mapStateToProps)(Deck);

@@ -9,3 +9,11 @@ export const result = (score) => {
     return "Well done!";
   }
 };
+
+export const getDecks = () => {};
+
+export const getDeck = (deckId) => {};
+
+export const saveDeckTitle = (title) => {};
+
+export const addCardToDeck = (title, card) => {};

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { data } from "../utils/api";
 import DeckInfo from "./DeckInfo";
+import { connect } from "react-redux";
+import { handleInitialData } from "../actions";
 
-export default function DeckList() {
+export const DeckList = (props) => {
+  useEffect(() => {
+    props.dispatch(handleInitialData());
+  }, []);
+  const data = props.decks;
   return (
     <View style={styles.decklist_container}>
       {Object.keys(data).map((title) => (
@@ -11,7 +16,7 @@ export default function DeckList() {
       ))}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   decklist_container: {
@@ -20,3 +25,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
 });
+
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+
+export default connect(mapStateToProps)(DeckList);
