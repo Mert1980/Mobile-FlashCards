@@ -1,18 +1,29 @@
 import React from "react";
-import { connect, store } from "react-redux";
+import { connect } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import DeckInfo from "./DeckInfo";
-
+import { deleteDeck } from "../actions/index";
+import { removeDeck } from "../utils/api";
 import { white, blue, red } from "../utils/colors";
-import { getDecks } from "../utils/api";
+
+const InfoDelete = () => {
+  return (
+    <View style={styles.deleteInfoContainer}>
+      <Text style={[styles.text, { color: red, fontSize: 34 }]}>
+        Successfully Deleted!
+      </Text>
+    </View>
+  );
+};
 
 export const Deck = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
   const { deckId, defaultLength } = route.params;
   const data = props.decks;
+  console.log("data in DeckJs ", data[deckId]);
 
   const startQuiz = () => {
     navigation.navigate("Quiz", {
@@ -21,10 +32,13 @@ export const Deck = (props) => {
     });
   };
 
-  const deleteDeck = () => {
-    console.log("Deleted");
-  };
-  return (
+  function deleteDeck(key) {
+    props.deleteDeck(key);
+    removeDeck(key);
+  }
+  return data[deckId] === undefined ? (
+    <InfoDelete />
+  ) : (
     <View style={styles.container}>
       <DeckInfo
         title={deckId}
@@ -42,7 +56,11 @@ export const Deck = (props) => {
         <Text style={styles.text}>Start Quiz</Text>
       </TouchableOpacity>
       <View style={styles.deleteButton}>
-        <Button title={"Delete Deck"} color={red} onPress={deleteDeck} />
+        <Button
+          title={"Delete Deck"}
+          color={red}
+          onPress={() => deleteDeck(deckId)}
+        />
       </View>
     </View>
   );
@@ -79,6 +97,9 @@ const styles = StyleSheet.create({
     color: white,
     textAlign: "center",
   },
+  deleteInfoContainer: {
+    marginTop: "50%",
+  },
 });
 
 function mapStateToProps(state) {
@@ -87,4 +108,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Deck);
+export default connect(mapStateToProps, { deleteDeck })(Deck);

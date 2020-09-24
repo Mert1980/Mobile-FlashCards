@@ -86,7 +86,7 @@ const TabNav = ({ navigation, route }) => {
 
 const Stack = createStackNavigator();
 
-const MainNav = () => (
+const MainNav = (props) => (
   <Stack.Navigator headerMode="screen">
     <Stack.Screen
       name="Home"
@@ -127,6 +127,13 @@ const MainNav = () => (
     <Stack.Screen
       name="Result"
       component={Result}
+      options={() => ({
+        headerTitle: null,
+      })}
+    />
+    <Stack.Screen
+      name="DeckList"
+      component={DeckList}
       options={() => ({
         headerTitle: null,
       })}

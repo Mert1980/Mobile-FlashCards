@@ -66,3 +66,15 @@ export const saveDeckTitle = (title) => {
     console.log(e);
   }
 };
+
+export async function removeDeck(key) {
+  try {
+    const results = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);
+    const data = JSON.parse(results);
+    data[key] = undefined;
+    delete data[key];
+    AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.log(e);
+  }
+}

@@ -20,7 +20,10 @@ export const AddDeck = (props) => {
     props.addDeck(value);
     saveDeckTitle(value);
 
-    navigation.navigate("Deck", { deckId: value, defaultLength: 0 });
+    navigation.navigate("Deck", {
+      deckId: value,
+      defaultLength: 0,
+    });
     setValue("");
   };
   return (
