@@ -1,11 +1,11 @@
 import React from "react";
 import { connect, store } from "react-redux";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import DeckInfo from "./DeckInfo";
 
-import { white, blue } from "../utils/colors";
+import { white, blue, red } from "../utils/colors";
 import { getDecks } from "../utils/api";
 
 export const Deck = (props) => {
@@ -19,6 +19,10 @@ export const Deck = (props) => {
       deckId: deckId,
       defaultLength: 0,
     });
+  };
+
+  const deleteDeck = () => {
+    console.log("Deleted");
   };
   return (
     <View style={styles.container}>
@@ -37,6 +41,9 @@ export const Deck = (props) => {
       <TouchableOpacity style={styles.button} onPress={startQuiz}>
         <Text style={styles.text}>Start Quiz</Text>
       </TouchableOpacity>
+      <View style={styles.deleteButton}>
+        <Button title={"Delete Deck"} color={red} onPress={deleteDeck} />
+      </View>
     </View>
   );
 };
@@ -61,6 +68,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
+  },
+  deleteButton: {
+    marginTop: 20,
   },
   text: {
     fontSize: 24,
