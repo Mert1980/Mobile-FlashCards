@@ -1,11 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, store } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import DeckInfo from "./DeckInfo";
 
 import { white, blue } from "../utils/colors";
+import { getDecks } from "../utils/api";
 
 export const Deck = (props) => {
   const route = useRoute();
@@ -24,9 +25,7 @@ export const Deck = (props) => {
       <DeckInfo
         title={deckId}
         questions={
-          data[deckId].questions.length > 0
-            ? data[deckId].questions
-            : defaultLength
+          data[deckId].questions === [] ? defaultLength : data[deckId].questions
         }
       />
       <TouchableOpacity
@@ -72,9 +71,9 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(decks) {
+function mapStateToProps(state) {
   return {
-    decks,
+    decks: state,
   };
 }
 

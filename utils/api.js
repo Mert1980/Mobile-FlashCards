@@ -33,20 +33,35 @@ export const data = {
   },
 };
 
-export const storeData = async (data) => {
+export function getData() {
+  return data;
+}
+
+export async function getDecks() {
   try {
-    const jsonData = JSON.stringify(data);
-    await AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, jsonData);
+    const jsonValue = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);
+
+    if (jsonValue === null) {
+      AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(data));
+    }
+
+    return jsonValue === null ? data : JSON.parse(jsonValue);
   } catch (e) {
     console.log(e);
   }
-};
+}
 
-export const getDecks = async () => {
+export const saveDeckTitle = (title) => {
   try {
-    const jsonValue = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);
-    console.log("fromLocalStorage", jsonValue);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    AsyncStorage.mergeItem(
+      FLASHCARDS_STORAGE_KEY,
+      JSON.stringify({
+        [title]: {
+          title: title,
+          questions: [],
+        },
+      })
+    );
   } catch (e) {
     console.log(e);
   }

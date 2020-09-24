@@ -33,7 +33,7 @@ export default function DeckList() {
           }}
           onChangeText={(text) => setQuestion(text)}
           value={question}
-          placeholder="Question"
+          placeholder="Question - statement"
           clearButtonMode="always"
         />
       </View>
@@ -48,7 +48,7 @@ export default function DeckList() {
           }}
           onChangeText={(text) => setAnswer(text)}
           value={answer}
-          placeholder="Answer"
+          placeholder="Answer - true or false"
           clearButtonMode="always"
         />
       </View>

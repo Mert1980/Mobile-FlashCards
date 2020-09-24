@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import DeckInfo from "./DeckInfo";
 import { connect } from "react-redux";
-import { handleInitialData } from "../actions";
+import { handleInitialData } from "../actions/index";
 
 export const DeckList = (props) => {
   useEffect(() => {
-    props.dispatch(handleInitialData());
+    props.handleInitialData();
   }, []);
   const data = props.decks;
+
   return (
-    <View style={styles.decklist_container}>
+    <ScrollView style={styles.decklist_container}>
       {Object.keys(data).map((title) => (
         <DeckInfo title={title} key={title} questions={data[title].questions} />
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -22,14 +23,13 @@ const styles = StyleSheet.create({
   decklist_container: {
     flex: 1,
     backgroundColor: "lightblue",
-    justifyContent: "flex-start",
   },
 });
 
-function mapStateToProps(decks) {
+function mapStateToProps(state) {
   return {
-    decks,
+    decks: state,
   };
 }
 
-export default connect(mapStateToProps)(DeckList);
+export default connect(mapStateToProps, { handleInitialData })(DeckList);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, connect } from "react-redux";
 import {
   View,
   Text,
@@ -7,14 +8,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { addDeck } from "../actions/index";
+import { saveDeckTitle } from "../utils/api";
 import { white, blue } from "../utils/colors";
 
-export default function DeckList() {
+export const AddDeck = (props) => {
   const [value, setValue] = useState("");
-
   const navigation = useNavigation();
+
   const createDeck = () => {
+    props.addDeck(value);
+    saveDeckTitle(value);
+
     navigation.navigate("Deck", { deckId: value, defaultLength: 0 });
+    setValue("");
   };
   return (
     <View style={styles.container}>
@@ -46,7 +53,7 @@ export default function DeckList() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -81,3 +88,11 @@ const styles = StyleSheet.create({
     },
   },
 });
+
+function mapStateToProps(state) {
+  return {
+    decks: state,
+  };
+}
+
+export default connect(mapStateToProps, { addDeck })(AddDeck);

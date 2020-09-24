@@ -1,6 +1,7 @@
-import { getDecks } from "../utils/api";
+import { getDecks, saveDeckTitle } from "../utils/api";
 
 export const RECEIVE_DECKS = "RECEIVE-DECKS";
+export const CREATE_DECK = "CREATE_DECK";
 
 function receiveDecks(decks) {
   return {
@@ -10,8 +11,16 @@ function receiveDecks(decks) {
 }
 
 export function handleInitialData() {
-  return async (dispatch) => {
-    const decks = await getDecks();
-    dispatch(receiveDecks(decks));
+  return (dispatch) => {
+    return getDecks().then((decks) => {
+      dispatch(receiveDecks(decks));
+    });
+  };
+}
+
+export function addDeck(title) {
+  return {
+    type: CREATE_DECK,
+    title,
   };
 }

@@ -16,6 +16,8 @@ export const Quiz = (props) => {
   const data = props.decks;
   const length = data[deckId].questions.length;
 
+  const isEmpty = data[deckId].questions.length === 0 ? true : false;
+
   const handleCorrect = () => {
     if (data[deckId].questions[counter].answer) {
       setCountResult(countResult + 1);
@@ -53,7 +55,7 @@ export const Quiz = (props) => {
     }
   }, [showResult]);
 
-  return (
+  return !isEmpty ? (
     <View style={styles.container}>
       <View style={styles.counter}>
         <Text style={styles.counterText}>
@@ -102,6 +104,12 @@ export const Quiz = (props) => {
         </TouchableOpacity>
       </View>
     </View>
+  ) : (
+    <View style={styles.center}>
+      <Text style={styles.textInfo}>
+        Sorry! You can't start quiz before adding cards to the deck.
+      </Text>
+    </View>
   );
 };
 
@@ -142,6 +150,17 @@ const styles = StyleSheet.create({
     marginRight: 30,
     color: white,
     textAlign: "center",
+  },
+  textInfo: {
+    fontSize: 40,
+    marginLeft: 30,
+    marginRight: 30,
+    color: black,
+    textAlign: "center",
+  },
+  center: {
+    marginTop: "35%",
+    alignItems: "center",
   },
 });
 function mapStateToProps(decks) {
