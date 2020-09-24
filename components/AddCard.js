@@ -6,21 +6,28 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { white, blue } from "../utils/colors";
+import { addCard } from "../actions/index";
 
-export default function DeckList() {
+export const AddCard = (props) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const route = useRoute();
   const navigation = useNavigation();
-  const createCard = () => {
+
+  function createCard(title) {
+    props.addCard(title, {
+      question: question,
+      answer: "True" ? true : false,
+    });
     navigation.navigate("Deck", {
       deckId: route.params.deckId,
       defaultLength: 0,
     });
-  };
+  }
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
@@ -53,13 +60,16 @@ export default function DeckList() {
         />
       </View>
       <View style={styles.subContainer}>
-        <TouchableOpacity style={styles.button} onPress={createCard}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => createCard(route.params.deckId)}
+        >
           <Text style={styles.text}>Create Card</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -94,3 +104,11 @@ const styles = StyleSheet.create({
     },
   },
 });
+
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+
+export default connect(mapStateToProps, { addCard })(AddCard);

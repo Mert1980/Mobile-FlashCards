@@ -163,9 +163,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-function mapStateToProps(decks) {
+function mapStateToProps(state) {
   return {
-    decks,
+    decks: state,
   };
 }
 
