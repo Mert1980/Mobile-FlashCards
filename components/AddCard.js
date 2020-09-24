@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { white, blue } from "../utils/colors";
 import { addCard } from "../actions/index";
+import { addCardToDeck } from "../utils/api";
 
 export const AddCard = (props) => {
   const [question, setQuestion] = useState("");
@@ -21,7 +22,11 @@ export const AddCard = (props) => {
   function createCard(title) {
     props.addCard(title, {
       question: question,
-      answer: "True" ? true : false,
+      answer: answer === "True" ? true : false,
+    });
+    addCardToDeck(title, {
+      question: question,
+      answer: answer === "True" ? true : false,
     });
     navigation.navigate("Deck", {
       deckId: route.params.deckId,
