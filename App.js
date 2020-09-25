@@ -21,6 +21,7 @@ import AddCard from "./components/AddCard";
 import Quiz from "./components/Quiz";
 import Result from "./components/Result";
 import { orange, white } from "./utils/colors";
+import { setLocalNotification } from "./utils/helpers";
 
 function FlashStatusBar({ backgroundColor, ...props }) {
   return (
@@ -144,6 +145,9 @@ const MainNav = (props) => (
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 export default function App() {
+  useEffect(() => {
+    setLocalNotification();
+  }, []);
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
