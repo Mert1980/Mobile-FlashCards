@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import { RECEIVE_DECKS } from "../actions";
 
 export const FLASHCARDS_STORAGE_KEY = "mobileflashcards:udacity";
 
