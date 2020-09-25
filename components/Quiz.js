@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { setLocalNotification, clearLocalNotification } from "../utils/helpers";
 import { black, blue, red, white, gray } from "../utils/colors";
 
 export const Quiz = (props) => {
@@ -47,6 +48,7 @@ export const Quiz = (props) => {
       setCounter(0);
       setCountResult(0);
       setShowResult(false);
+      clearLocalNotification().then(setLocalNotification);
       navigation.navigate("Result", {
         countResult,
         length,
