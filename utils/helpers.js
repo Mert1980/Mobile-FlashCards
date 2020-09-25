@@ -1,6 +1,5 @@
 import { AsyncStorage } from "react-native";
 import * as Notifications from "expo-notifications";
-
 import * as Permissions from "expo-permissions";
 
 const NOTIFICATION_KEY = "FlashCardApp:notifications";
@@ -16,36 +15,30 @@ export function setLocalNotification() {
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          if (status === "granted") {
-            Notifications.cancelAllScheduledNotificationsAsync();
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(
+          async ({ status }) => {
+            if (status === "granted") {
+              Notifications.cancelAllScheduledNotificationsAsync();
 
-            let tomorrow = new Date() + 1;
-            tomorrow.setDate(tomorrow.getDate());
-            tomorrow.setHours(20);
-            tomorrow.setMinutes(0);
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0);
 
-            Notifications.scheduleNotificationAsync(
-              {
-                title: "Log your stats!",
-                body: "👋 don't forget to log your stats for today!",
-                ios: {
-                  sound: true,
+              Notifications.scheduleNotificationAsync({
+                content: {
+                  title: "Let's take a quiz !",
+                  body: "👋 You didn't take any quiz today",
+                  data: { data: "goes here" },
                 },
-                android: {
-                  sound: true,
-                  sticky: false,
-                },
-              },
-              {
-                time: tomorrow.getTime() + 6000, // almost every minute it should show the notification
-                repeat: "minute",
-              }
-            );
+                trigger: { seconds: (tomorrow.getTime() - Date.now()) / 1000 },
+              });
 
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+            } else {
+            }
           }
-        });
+        );
       }
     });
 }
