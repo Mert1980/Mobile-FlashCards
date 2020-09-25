@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native";
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 
 import * as Permissions from "expo-permissions";
 
@@ -25,7 +25,7 @@ export function setLocalNotification() {
             tomorrow.setHours(20);
             tomorrow.setMinutes(0);
 
-            Notifications.scheduleLocalNotificationAsync(
+            Notifications.scheduleNotificationAsync(
               {
                 title: "Log your stats!",
                 body: "👋 don't forget to log your stats for today!",
